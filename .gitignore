@@ -15,11 +15,12 @@ public/hot
 public_html/storage
 public_html/hot
 
+/.idea
 storage/*.key
 .env
+composer.phar
+composer.lock
 Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
-
-/.idea
