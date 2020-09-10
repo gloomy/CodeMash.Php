@@ -1,0 +1,29 @@
+{
+  "name": "codemash-io/codemash-php",
+  "description": "PHP SDK for CodeMash.io",
+  "keywords": [
+    "codemash"
+  ],
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "guzzlehttp/guzzle": "^7.0.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Codemash\\": "src/"
+    },
+    "files": [
+      "config/config.php",
+      "src/helpers.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  }
+}
