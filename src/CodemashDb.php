@@ -2,8 +2,9 @@
 
 namespace Codemash;
 
+use Codemash\Exceptions\RequestValidationException;
+use Codemash\Params\CodemashDbParams;
 use GuzzleHttp\Exception\GuzzleException;
-use function Couchbase\defaultDecoder;
 
 class CodemashDb
 {
@@ -17,72 +18,200 @@ class CodemashDb
 
     /**
      * @throws GuzzleException
+     * @throws RequestValidationException
      */
-    public function insertOneInCollection(
-        string $collectionName,
-        array $document,
-        bool $bypassDocumentValidation = false,
-        bool $waitForFileUpload = false,
-        bool $ignoreTriggers = false
-    ): array
+    public function insertOne(array $params): array
     {
-        return $this->client->request('POST', $this->uriPrefix . $collectionName, [
+        $params = CodemashDbParams::prepInsertOneParams($params);
+
+        return $this->client->request('POST', $this->uriPrefix . $params['collectionName'], [
             'headers' => [
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
             ],
-            'body' => toJson([
-                'document' => toJson($document),
-                'bypassDocumentValidation' => $bypassDocumentValidation,
-                'waitForFileUpload' => $waitForFileUpload,
-                'ignoreTriggers' => $ignoreTriggers,
-            ])
+            'body' => toJson($params),
         ]);
     }
 
     /**
      * @throws GuzzleException
+     * @throws RequestValidationException
      */
-    public function insertManyInCollection(
-        string $collectionName,
-        array $documents,
-        bool $bypassDocumentValidation = false,
-        bool $ignoreTriggers = false
-    ): array
+    public function insertMany(array $params): array
     {
-        return $this->client->request('POST', $this->uriPrefix . $collectionName . '/bulk', [
+        $params = CodemashDbParams::prepInsertManyParams($params);
+
+        return $this->client->request('POST', $this->uriPrefix . $params['collectionName'] . '/bulk', [
             'headers' => [
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
             ],
-            'body' => toJson([
-                'documents' => array_map('toJson', $documents),
-                'bypassDocumentValidation' => $bypassDocumentValidation,
-                'ignoreTriggers' => $ignoreTriggers,
-            ])
+            'body' => toJson($params),
         ]);
     }
 
     /**
      * @throws GuzzleException
+     * @throws RequestValidationException
      */
-    public function countCollection(
-        string $collectionName,
-        ?array $filter = null,
-        ?int $limit = null,
-        ?int $skip = null
-    ): int
+    public function get(array $params): array
     {
-        return $this->client->request('GET', $this->uriPrefix . $collectionName . '/count', [
+        $params = CodemashDbParams::prepGetParams($params);
+
+        return $this->client->request('GET', $this->uriPrefix . $params['collectionName'] . '/' . $params['id'], [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'Accept-Language' => 'en',
+            ],
+            'body' => toJson($params),
+        ]);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws RequestValidationException
+     */
+    public function findOne(array $params): ?array
+    {
+        $params = CodemashDbParams::prepFindOneParams($params);
+
+        return $this->client->request('GET', $this->uriPrefix . $params['collectionName'] . '/findOne', [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'Accept-Language' => 'en',
+            ],
+            'body' => toJson($params),
+        ]);
+    }
+
+    public function findMany(array $params): ?array
+    {
+        $params = CodemashDbParams::prepFindManyParams($params);
+
+        return $this->client->request('GET', $this->uriPrefix . $params['collectionName'] . '/find', [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'Accept-Language' => 'en',
+            ],
+            'body' => toJson($params),
+        ]);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws RequestValidationException
+     */
+    public function count(array $params): int
+    {
+        $params = CodemashDbParams::prepCountParams($params);
+
+        return $this->client->request('GET', $this->uriPrefix . $params['collectionName'] . '/count', [
             'headers' => [
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
             ],
-            'body' => toJson([
-                'filter' => $filter ? toJson($filter) : null,
-                'limit' => $limit,
-                'skip' => $skip,
-            ])
+            'body' => toJson($params),
+        ]);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws RequestValidationException
+     */
+    public function getAggregate(array $params): ?array
+    {
+        $params = CodemashDbParams::prepGetAggregateParams($params);
+
+        return $this->client->request('GET', $this->uriPrefix . $params['collectionName'] . '/aggregate/' . $params['id'], [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ],
+            'body' => toJson($params),
+        ]);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws RequestValidationException
+     */
+    public function replaceOne(array $params): array
+    {
+        $params = CodemashDbParams::prepReplaceOneParams($params);
+
+        return $this->client->request('PUT', $this->uriPrefix . $params['collectionName'] . '/replaceOne', [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ],
+            'body' => toJson($params),
+        ]);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws RequestValidationException
+     */
+    public function updateOne(array $params): array
+    {
+        $params = CodemashDbParams::prepUpdateOneParams($params);
+
+        return $this->client->request('PATCH', $this->uriPrefix . $params['collectionName'], [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ],
+            'body' => toJson($params),
+        ]);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws RequestValidationException
+     */
+    public function deleteOne(array $params): array
+    {
+        $params = CodemashDbParams::prepDeleteParams($params);
+
+        return $this->client->request('DELETE', $this->uriPrefix . $params['collectionName'], [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ],
+            'body' => toJson($params),
+        ]);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws RequestValidationException
+     */
+    public function deleteMany(array $params): array
+    {
+        $params = CodemashDbParams::prepDeleteParams($params);
+
+        return $this->client->request('DELETE', $this->uriPrefix . $params['collectionName'] . '/bulk', [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ],
+            'body' => toJson($params),
+        ]);
+    }
+
+    public function getTaxonomyTerms(array $params): array
+    {
+        $params = CodemashDbParams::prepGetTaxonomyTerms($params);
+
+        return $this->client->request('GET', $this->uriPrefix . '/taxonomies/' . $params['taxonomyName'] . '/terms', [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ],
+            'body' => toJson($params),
         ]);
     }
 }

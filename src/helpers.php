@@ -16,3 +16,17 @@ if (! function_exists('jsonToArray')) {
         return \GuzzleHttp\json_decode($val, true);
     }
 }
+
+if (! function_exists('validateRequiredRequestParams')) {
+    /**
+     * @throws \Codemash\Exceptions\RequestValidationException
+     */
+    function validateRequiredRequestParams(array $required, array $params): void
+    {
+        foreach ($required as $item) {
+            if (empty($params[$item])) {
+                throw new \Codemash\Exceptions\RequestValidationException('"' . $item . '" is required!');
+            }
+        }
+    }
+}

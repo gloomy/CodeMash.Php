@@ -31,8 +31,6 @@ class CodemashClient
             $options['headers'] = $this->headers;
         }
 
-        $responseBody = jsonToArray((string) $this->client->request($method, $uri, $options)->getBody());
-
-        return $responseBody['result'];
+        return jsonToArray((string) $this->client->request($method, $uri, $options)->getBody());
     }
 }
