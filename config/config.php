@@ -1,3 +1,3 @@
 <?php
 
-define('CODEMASH_API_URL', 'https://api.codemash.io/v2');
+define('CODEMASH_API_URL', 'https://api.codemash.io');

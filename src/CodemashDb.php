@@ -9,7 +9,7 @@ use GuzzleHttp\Exception\GuzzleException;
 class CodemashDb
 {
     private CodemashClient $client;
-    private string $uriPrefix = 'db/';
+    private string $uriPrefix = 'v2/db/';
 
     public function __construct(CodemashClient $client)
     {
@@ -210,7 +210,7 @@ class CodemashDb
     {
         $params = CodemashDbParams::prepDeleteOneParams($params);
 
-        return $this->client->request('DELETE', $this->uriPrefix . $params['collectionName'] . '/' . $params['id'], [
+        return $this->client->request('DELETE', $this->uriPrefix . $params['collectionName'], [
             'headers' => [
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
