@@ -159,7 +159,41 @@ class CodemashDb
     {
         $params = CodemashDbParams::prepUpdateOneParams($params);
 
+        return $this->client->request('PATCH', $this->uriPrefix . $params['collectionName'] . '/' . $params['id'], [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ],
+            'body' => toJson($params),
+        ]);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws RequestValidationException
+     */
+    public function updateOneWithFilter(array $params): array
+    {
+        $params = CodemashDbParams::prepUpdateOneWithFilterParams($params);
+
         return $this->client->request('PATCH', $this->uriPrefix . $params['collectionName'], [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ],
+            'body' => toJson($params),
+        ]);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws RequestValidationException
+     */
+    public function updateMany(array $params): array
+    {
+        $params = CodemashDbParams::prepUpdateManyParams($params);
+
+        return $this->client->request('PATCH', $this->uriPrefix . $params['collectionName'] . '/bulk', [
             'headers' => [
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
@@ -174,7 +208,24 @@ class CodemashDb
      */
     public function deleteOne(array $params): array
     {
-        $params = CodemashDbParams::prepDeleteParams($params);
+        $params = CodemashDbParams::prepDeleteOneParams($params);
+
+        return $this->client->request('DELETE', $this->uriPrefix . $params['collectionName'] . '/' . $params['id'], [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ],
+            'body' => toJson($params),
+        ]);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws RequestValidationException
+     */
+    public function deleteOneWithFilter(array $params): array
+    {
+        $params = CodemashDbParams::prepDeleteWithFilterParams($params);
 
         return $this->client->request('DELETE', $this->uriPrefix . $params['collectionName'], [
             'headers' => [
@@ -191,7 +242,7 @@ class CodemashDb
      */
     public function deleteMany(array $params): array
     {
-        $params = CodemashDbParams::prepDeleteParams($params);
+        $params = CodemashDbParams::prepDeleteWithFilterParams($params);
 
         return $this->client->request('DELETE', $this->uriPrefix . $params['collectionName'] . '/bulk', [
             'headers' => [

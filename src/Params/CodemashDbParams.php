@@ -168,6 +168,26 @@ class CodemashDbParams
      */
     public static function prepUpdateOneParams(array $params): array
     {
+        $required = ['collectionName', 'id', 'update'];
+
+        validateRequiredRequestParams($required, $params);
+
+        return [
+            'collectionName' => $params['collectionName'],
+            'id' => $params['id'],
+            'update' => toJson($params['update']),
+            'bypassDocumentValidation' => $params['bypassDocumentValidation'] ?? false,
+            'waitForFileUpload' => $params['waitForFileUpload'] ?? false,
+            'isUpsert' => $params['isUpsert'] ?? false,
+            'ignoreTriggers' => $params['ignoreTriggers'] ?? false,
+        ];
+    }
+
+    /**
+     * @throws RequestValidationException
+     */
+    public static function prepUpdateOneWithFilterParams(array $params): array
+    {
         $required = ['collectionName', 'filter', 'update'];
 
         validateRequiredRequestParams($required, $params);
@@ -179,13 +199,48 @@ class CodemashDbParams
             'bypassDocumentValidation' => $params['bypassDocumentValidation'] ?? false,
             'waitForFileUpload' => $params['waitForFileUpload'] ?? false,
             'isUpsert' => $params['isUpsert'] ?? false,
+            'ignoreTriggers' => $params['ignoreTriggers'] ?? false,
         ];
     }
 
     /**
      * @throws RequestValidationException
      */
-    public static function prepDeleteParams(array $params): array
+    public static function prepUpdateManyParams(array $params): array
+    {
+        $required = ['collectionName', 'filter', 'update'];
+
+        validateRequiredRequestParams($required, $params);
+
+        return [
+            'collectionName' => $params['collectionName'],
+            'filter' => toJson($params['filter']),
+            'update' => toJson($params['update']),
+            'bypassDocumentValidation' => $params['bypassDocumentValidation'] ?? false,
+            'isUpsert' => $params['isUpsert'] ?? false,
+            'ignoreTriggers' => $params['ignoreTriggers'] ?? false,
+        ];
+    }
+
+    /**
+     * @throws RequestValidationException
+     */
+    public static function prepDeleteOneParams(array $params): array
+    {
+        $required = ['collectionName', 'id'];
+
+        validateRequiredRequestParams($required, $params);
+
+        return [
+            'collectionName' => $params['collectionName'],
+            'id' => $params['id'],
+        ];
+    }
+
+    /**
+     * @throws RequestValidationException
+     */
+    public static function prepDeleteWithFilterParams(array $params): array
     {
         $required = ['collectionName', 'filter'];
 

@@ -13,7 +13,7 @@ if (! function_exists('toJson')) {
 if (! function_exists('jsonToArray')) {
     function jsonToArray(string $val): array
     {
-        return \GuzzleHttp\json_decode($val, true);
+        return (array) \GuzzleHttp\json_decode($val, true);
     }
 }
 

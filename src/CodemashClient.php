@@ -20,10 +20,9 @@ class CodemashClient
     }
 
     /**
-     * @return mixed
      * @throws GuzzleException
      */
-    public function request(string $method, string $uri, array $options = [])
+    public function request(string $method, string $uri, array $options = []): array
     {
         if (! empty($options['headers'])) {
             $options['headers'] += $this->headers;
