@@ -210,7 +210,7 @@ class CodemashDb
     {
         $params = CodemashDbParams::prepDeleteOneParams($params);
 
-        return $this->client->request('DELETE', $this->uriPrefix . $params['collectionName'], [
+        return $this->client->request('DELETE', $this->uriPrefix . $params['collectionName'] . '/' . $params['id'], [
             'headers' => [
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
