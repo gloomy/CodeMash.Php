@@ -10,7 +10,7 @@ class CodemashClient
     private Client $client;
     private array $headers;
 
-    public function __construct(string $projectId, string $secretKey)
+    public function __construct(string $secretKey, string $projectId)
     {
         $this->client = new Client(['base_uri' => CODEMASH_API_URL]);
         $this->headers = [

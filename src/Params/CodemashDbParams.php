@@ -133,13 +133,18 @@ class CodemashDbParams
      */
     public static function prepGetAggregateParams(array $params): array
     {
-        $required = ['collectionName', 'id'];
+        $required = ['collectionName'];
+
+        if (empty($params['pipeline'])) {
+            $required[] = 'id';
+        }
 
         validateRequiredRequestParams($required, $params);
 
         return [
             'collectionName' => $params['collectionName'],
-            'id' => $params['id'],
+            'id' => $params['id'] ?? null,
+            'pipeline' => ! empty ($params['pipeline']) ? array_map('toJson', $params['pipeline']) : null,
             'tokens' => ! empty($params['tokens']) ? (object) ($params['tokens']) : null,
         ];
     }
@@ -249,6 +254,23 @@ class CodemashDbParams
         return [
             'collectionName' => $params['collectionName'],
             'filter' => toJson($params['filter']),
+        ];
+    }
+
+    /**
+     * @throws RequestValidationException
+     */
+    public static function prepGetDistinctParams(array $params): array
+    {
+        $required = ['collectionName', 'field'];
+
+        validateRequiredRequestParams($required, $params);
+
+        return [
+            'collectionName' => $params['collectionName'],
+            'field' => $params['field'],
+            'filter' => ! empty($params['filter']) ? toJson($params['filter']) : null,
+            'cultureCode' => $params['cultureCode'] ?? null,
         ];
     }
 
