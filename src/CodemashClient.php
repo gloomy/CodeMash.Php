@@ -21,8 +21,9 @@ class CodemashClient
 
     /**
      * @throws GuzzleException
+     * @return array|int
      */
-    public function request(string $method, string $uri, array $options = []): array
+    public function request(string $method, string $uri, array $options = [])
     {
         if (! empty($options['headers'])) {
             $options['headers'] += $this->headers;
@@ -30,6 +31,10 @@ class CodemashClient
             $options['headers'] = $this->headers;
         }
 
-        return jsonToArray((string) $this->client->request($method, $uri, $options)->getBody());
+        $request = $this->client->request($method, $uri, $options);
+
+        $bodyString = (string) $request->getBody();
+
+        return ! empty($bodyString) ? jsonToArray($bodyString) : (int) $request->getStatusCode();
     }
 }
