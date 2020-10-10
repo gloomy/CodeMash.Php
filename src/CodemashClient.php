@@ -33,8 +33,8 @@ class CodemashClient
 
         $request = $this->client->request($method, $uri, $options);
 
-        $bodyString = (string) $request->getBody();
+        $statusCodeInt = (int) $request->getStatusCode();
 
-        return ! empty($bodyString) ? jsonToArray($bodyString) : (int) $request->getStatusCode();
+        return $statusCodeInt === 204 ? $statusCodeInt : jsonToArray((string) $request->getBody());
     }
 }
