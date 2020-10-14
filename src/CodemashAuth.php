@@ -39,17 +39,16 @@ class CodemashAuth
      * @throws GuzzleException
      * @throws RequestValidationException
      */
-    public function checkAuth(array $params): array
+    public function checkAuth(): array
     {
-        $params = CodemashAuthParams::prepAuthenticateParams($params);
-
-        return $this->client->request('POST', $this->uriPrefix . 'auth', [
+        $response = $this->client->request('POST', $this->uriPrefix, [
             'headers' => [
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
             ],
-            'body' => toJson($params),
         ]);
+
+        return $response['result'];
     }
 
     /**
