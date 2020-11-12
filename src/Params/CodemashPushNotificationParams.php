@@ -48,4 +48,76 @@ class CodemashPushNotificationParams
             'deviceId' => $params['deviceId'] ?? null,
         ];
     }
+
+    public static function prepRegisterDeviceParams(array $params): array
+    {
+        return [
+            'userId' => $params['userId'] ?? null,
+            'timeZone' => $params['timeZone'] ?? null,
+            'meta' => $params['meta'] ?? null,
+        ];
+    }
+
+    /**
+     * @throws RequestValidationException
+     */
+    public static function prepRegisterExpoTokenParams(array $params): array
+    {
+        $required = ['token'];
+
+        validateRequiredRequestParams($required, $params);
+
+        return [
+            'token' => $params['token'],
+            'deviceId' => $params['deviceId'] ?? null,
+            'userId' => $params['userId'] ?? null,
+            'timeZone' => $params['timeZone'] ?? null,
+            'meta' => $params['meta'] ?? null,
+        ];
+    }
+
+    /**
+     * @throws RequestValidationException
+     */
+    public static function prepUpdateDeviceMetaParams(array $params): array
+    {
+        $required = ['id'];
+
+        validateRequiredRequestParams($required, $params);
+
+        return [
+            'id' => $params['id'],
+            'meta' => $params['meta'] ?? null,
+        ];
+    }
+
+    /**
+     * @throws RequestValidationException
+     */
+    public static function prepUpdateDeviceTimezoneParams(array $params): array
+    {
+        $required = ['id'];
+
+        validateRequiredRequestParams($required, $params);
+
+        return [
+            'id' => $params['id'],
+            'timezone' => $params['timezone'] ?? null,
+        ];
+    }
+
+    /**
+     * @throws RequestValidationException
+     */
+    public static function prepUpdateDeviceUserParams(array $params): array
+    {
+        $required = ['id'];
+
+        validateRequiredRequestParams($required, $params);
+
+        return [
+            'id' => $params['id'],
+            'userId' => $params['userId'] ?? null,
+        ];
+    }
 }
