@@ -1,0 +1,21 @@
+<phpunit
+    backupGlobals="true"
+    backupStaticAttributes="false"
+    cacheTokens="true"
+    colors="true"
+    forceCoversAnnotation="false"
+    processIsolation="false"
+    stopOnError="false"
+    stopOnFailure="false"
+    stopOnIncomplete="false"
+    stopOnSkipped="false"
+    stopOnRisky="false"
+    verbose="false"
+    failOnWarning="true"
+>
+    <testsuites>
+        <testsuite name="CodeMash.Php">
+            <directory>tests/</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
