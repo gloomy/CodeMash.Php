@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<ruleset name="CodeMash.Php code standarts">
+    <description>The coding standard for CodeMash PHP SDK project</description>
+    <arg name="extensions" value="php"/>
+    <arg value="p"/> <!-- progress -->
+    <rule ref="PSR12">
+    </rule>
+</ruleset>

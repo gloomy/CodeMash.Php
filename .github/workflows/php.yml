@@ -41,5 +41,8 @@ jobs:
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install --prefer-dist --no-progress --no-suggest
 
+      - name: Run phpcs
+        run: composer run-script phpcs src
+
       - name: Run phpunit
-        run: ./vendor/bin/phpunit
+        run: composer run-script test
