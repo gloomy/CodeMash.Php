@@ -179,13 +179,17 @@ class CodemashDb
     {
         $params = CodemashDbParams::prepUpdateOneParams($params);
 
-        $response = $this->client->request('PATCH', $this->uriPrefix . $params['collectionName'] . '/' . $params['id'], [
-            'headers' => [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-            ],
-            'body' => toJson($params),
-        ]);
+        $response = $this->client->request(
+            'PATCH',
+            $this->uriPrefix . $params['collectionName'] . '/' . $params['id'],
+            [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'body' => toJson($params),
+            ]
+        );
 
         return $response['result'];
     }
@@ -236,13 +240,17 @@ class CodemashDb
     {
         $params = CodemashDbParams::prepDeleteOneParams($params);
 
-        $response = $this->client->request('DELETE', $this->uriPrefix . $params['collectionName'] . '/' . $params['id'], [
-            'headers' => [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-            ],
-            'body' => toJson($params),
-        ]);
+        $response = $this->client->request(
+            'DELETE',
+            $this->uriPrefix . $params['collectionName'] . '/' . $params['id'],
+            [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'body' => toJson($params),
+            ]
+        );
 
         return $response['result'];
     }
@@ -312,13 +320,17 @@ class CodemashDb
     {
         $params = CodemashDbParams::prepGetTaxonomyTerms($params);
 
-        $response = $this->client->request('GET', $this->uriPrefix . '/taxonomies/' . $params['taxonomyName'] . '/terms', [
-            'headers' => [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-            ],
-            'body' => toJson($params),
-        ]);
+        $response = $this->client->request(
+            'GET',
+            $this->uriPrefix . '/taxonomies/' . $params['taxonomyName'] . '/terms',
+            [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'body' => toJson($params),
+            ]
+        );
 
         return $response['result'];
     }
