@@ -144,7 +144,7 @@ class CodemashDbParams
         return [
             'collectionName' => $params['collectionName'],
             'id' => $params['id'] ?? null,
-            'pipeline' => ! empty ($params['pipeline']) ? array_map('toJson', $params['pipeline']) : null,
+            'pipeline' => ! empty($params['pipeline']) ? array_map('toJson', $params['pipeline']) : null,
             'tokens' => ! empty($params['tokens']) ? (object) ($params['tokens']) : null,
         ];
     }

@@ -97,7 +97,11 @@ class CodemashFile
 
         $options = $this->prepUploadFileOptions($params);
 
-        $response = $this->client->request('POST', $this->uriPrefix . 'db/' . $params['collectionName'] . '/files', $options);
+        $response = $this->client->request(
+            'POST',
+            $this->uriPrefix . 'db/' . $params['collectionName'] . '/files',
+            $options
+        );
 
         return $response['result'];
     }
