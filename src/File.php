@@ -1,17 +1,17 @@
 <?php
 
-namespace Codemash;
+namespace CodeMash;
 
-use Codemash\Exceptions\RequestValidationException;
-use Codemash\Params\CodemashFileParams;
+use CodeMash\Exceptions\RequestValidationException;
+use CodeMash\Params\FileParams;
 use GuzzleHttp\Exception\GuzzleException;
 
-class CodemashFile
+class File
 {
-    private CodemashClient $client;
+    private Client $client;
     private string $uriPrefix = 'v2/';
 
-    public function __construct(CodemashClient $client)
+    public function __construct(Client $client)
     {
         $this->client = $client;
     }
@@ -78,7 +78,7 @@ class CodemashFile
      */
     public function uploadFile(array $params): array
     {
-        $params = CodemashFileParams::prepUploadFileParams($params);
+        $params = FileParams::prepUploadFileParams($params);
 
         $options = $this->prepUploadFileOptions($params);
 
@@ -93,7 +93,7 @@ class CodemashFile
      */
     public function uploadRecordFile(array $params): array
     {
-        $params = CodemashFileParams::prepUploadRecordFileParams($params);
+        $params = FileParams::prepUploadRecordFileParams($params);
 
         $options = $this->prepUploadFileOptions($params);
 
@@ -112,7 +112,7 @@ class CodemashFile
      */
     public function uploadUserFile(array $params): array
     {
-        $params = CodemashFileParams::prepUploadUserFileParams($params);
+        $params = FileParams::prepUploadUserFileParams($params);
 
         $options = $this->prepUploadFileOptions($params);
 

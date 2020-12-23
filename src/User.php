@@ -1,17 +1,17 @@
 <?php
 
-namespace Codemash;
+namespace CodeMash;
 
-use Codemash\Exceptions\RequestValidationException;
-use Codemash\Params\CodemashUserParams;
+use CodeMash\Exceptions\RequestValidationException;
+use CodeMash\Params\UserParams;
 use GuzzleHttp\Exception\GuzzleException;
 
-class CodemashUser
+class User
 {
-    private CodemashClient $client;
+    private Client $client;
     private string $uriPrefix = 'v2/membership/users/';
 
-    public function __construct(CodemashClient $client)
+    public function __construct(Client $client)
     {
         $this->client = $client;
     }
@@ -22,7 +22,7 @@ class CodemashUser
      */
     public function register(array $params): array
     {
-        $params = CodemashUserParams::prepRegisterParams($params);
+        $params = UserParams::prepRegisterParams($params);
 
         $response = $this->client->request('POST', $this->uriPrefix . 'register', [
             'headers' => [
@@ -41,7 +41,7 @@ class CodemashUser
      */
     public function invite(array $params): array
     {
-        $params = CodemashUserParams::prepInviteParams($params);
+        $params = UserParams::prepInviteParams($params);
 
         $response = $this->client->request('POST', $this->uriPrefix . 'invite', [
             'headers' => [
@@ -60,7 +60,7 @@ class CodemashUser
      */
     public function getUsers(?array $params = null): array
     {
-        $params = CodemashUserParams::prepGetUsersParams($params);
+        $params = UserParams::prepGetUsersParams($params);
 
         return $this->client->request('GET', $this->uriPrefix, [
             'headers' => [
@@ -77,7 +77,7 @@ class CodemashUser
      */
     public function getUser(array $params): array
     {
-        $params = CodemashUserParams::prepGetUserParams($params);
+        $params = UserParams::prepGetUserParams($params);
 
         $response = $this->client->request('GET', $this->uriPrefix . $params['id'], [
             'headers' => [
@@ -96,7 +96,7 @@ class CodemashUser
      */
     public function getUserByEmail(array $params): array
     {
-        $params = CodemashUserParams::prepGetUserByEmailParams($params);
+        $params = UserParams::prepGetUserByEmailParams($params);
 
         $response = $this->client->request('GET', $this->uriPrefix . 'by-email', [
             'headers' => [
@@ -115,7 +115,7 @@ class CodemashUser
      */
     public function updateProfile(array $params): int
     {
-        $params = CodemashUserParams::prepUpdateProfileParams($params);
+        $params = UserParams::prepUpdateProfileParams($params);
 
         return $this->client->request('PATCH', $this->uriPrefix . 'profile', [
             'headers' => [
@@ -132,7 +132,7 @@ class CodemashUser
      */
     public function updateUser(array $params): int
     {
-        $params = CodemashUserParams::prepUpdateUserParams($params);
+        $params = UserParams::prepUpdateUserParams($params);
 
         return $this->client->request('PATCH', $this->uriPrefix . $params['id'], [
             'headers' => [
@@ -149,7 +149,7 @@ class CodemashUser
      */
     public function deleteUser(array $params): int
     {
-        $params = CodemashUserParams::prepOnlyIdParams($params);
+        $params = UserParams::prepOnlyIdParams($params);
 
         return $this->client->request('DELETE', $this->uriPrefix . $params['id'], [
             'headers' => [
@@ -166,7 +166,7 @@ class CodemashUser
      */
     public function blockUser(array $params): int
     {
-        $params = CodemashUserParams::prepOnlyIdParams($params);
+        $params = UserParams::prepOnlyIdParams($params);
 
         return $this->client->request('PATCH', $this->uriPrefix . $params['id'] . '/block', [
             'headers' => [
@@ -183,7 +183,7 @@ class CodemashUser
      */
     public function unblockUser(array $params): int
     {
-        $params = CodemashUserParams::prepOnlyIdParams($params);
+        $params = UserParams::prepOnlyIdParams($params);
 
         return $this->client->request('PATCH', $this->uriPrefix . $params['id'] . '/unblock', [
             'headers' => [

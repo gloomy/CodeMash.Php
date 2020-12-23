@@ -19,13 +19,13 @@ if (! function_exists('jsonToArray')) {
 
 if (! function_exists('validateRequiredRequestParams')) {
     /**
-     * @throws \Codemash\Exceptions\RequestValidationException
+     * @throws \CodeMash\Exceptions\RequestValidationException
      */
     function validateRequiredRequestParams(array $required, array $params): void
     {
         foreach ($required as $item) {
             if (empty($params[$item])) {
-                throw new \Codemash\Exceptions\RequestValidationException('"' . $item . '" is required!');
+                throw new \CodeMash\Exceptions\RequestValidationException('"' . $item . '" is required!');
             }
         }
     }

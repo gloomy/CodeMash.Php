@@ -11,8 +11,8 @@ $httpOptions = ['base_uri' => CODEMASH_API_URL];
 
 $httpClient = new \GuzzleHttp\Client($httpOptions);
 
-$cmClient = new \Codemash\CodemashClient($secretKey, $projectId, $httpClient);
+$cmClient = new \Codemash\Client($secretKey, $projectId, $httpClient);
 
-$cmUser = new \Codemash\CodemashUser($cmClient);
+$cmUser = new \Codemash\User($cmClient);
 
 print_r($cmUser->getUsers());

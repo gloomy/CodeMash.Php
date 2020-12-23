@@ -1,10 +1,10 @@
 <?php
 
-namespace Codemash\Params;
+namespace CodeMash\Params;
 
-use Codemash\Exceptions\RequestValidationException;
+use CodeMash\Exceptions\RequestValidationException;
 
-class CodemashUserParams
+class UserParams
 {
     /**
      * @throws RequestValidationException

@@ -1,17 +1,17 @@
 <?php
 
-namespace Codemash;
+namespace CodeMash;
 
-use Codemash\Exceptions\RequestValidationException;
-use Codemash\Params\CodemashLogParams;
+use CodeMash\Exceptions\RequestValidationException;
+use CodeMash\Params\LogParams;
 use GuzzleHttp\Exception\GuzzleException;
 
-class CodemashLog
+class Log
 {
-    private CodemashClient $client;
+    private Client $client;
     private string $uriPrefix = 'v2/';
 
-    public function __construct(CodemashClient $client)
+    public function __construct(Client $client)
     {
         $this->client = $client;
     }
@@ -22,7 +22,7 @@ class CodemashLog
      */
     public function create(array $params): string
     {
-        $params = CodemashLogParams::prepCreateParams($params);
+        $params = LogParams::prepCreateParams($params);
 
         $response = $this->client->request('POST', $this->uriPrefix . 'logs', [
             'headers' => [

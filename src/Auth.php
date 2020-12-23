@@ -1,17 +1,17 @@
 <?php
 
-namespace Codemash;
+namespace CodeMash;
 
-use Codemash\Exceptions\RequestValidationException;
-use Codemash\Params\CodemashAuthParams;
+use CodeMash\Exceptions\RequestValidationException;
+use CodeMash\Params\AuthParams;
 use GuzzleHttp\Exception\GuzzleException;
 
-class CodemashAuth
+class Auth
 {
-    private CodemashClient $client;
+    private Client $client;
     private string $uriPrefix = 'v2/auth/';
 
-    public function __construct(CodemashClient $client)
+    public function __construct(Client $client)
     {
         $this->client = $client;
     }
@@ -22,7 +22,7 @@ class CodemashAuth
      */
     public function authenticate(array $params): array
     {
-        $params = CodemashAuthParams::prepAuthenticateParams($params);
+        $params = AuthParams::prepAuthenticateParams($params);
 
         $response = $this->client->request('POST', $this->uriPrefix . 'credentials', [
             'headers' => [
@@ -57,7 +57,7 @@ class CodemashAuth
      */
     public function logout(array $params): array
     {
-        $params = CodemashAuthParams::prepLogoutParams($params);
+        $params = AuthParams::prepLogoutParams($params);
 
         return $this->client->request('POST', 'auth/logout', [
             'headers' => [

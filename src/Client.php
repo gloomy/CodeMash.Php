@@ -1,11 +1,11 @@
 <?php
 
-namespace Codemash;
+namespace CodeMash;
 
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Client\ClientInterface;
 
-class CodemashClient
+class Client
 {
     private ClientInterface $client;
     private array $headers;
