@@ -2,17 +2,17 @@
 
 namespace Codemash;
 
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Psr\Http\Client\ClientInterface;
 
 class CodemashClient
 {
-    private Client $client;
+    private ClientInterface $client;
     private array $headers;
 
-    public function __construct(string $secretKey, string $projectId)
+    public function __construct(string $secretKey, string $projectId, ClientInterface $httpClient)
     {
-        $this->client = new Client(['base_uri' => CODEMASH_API_URL]);
+        $this->client = $httpClient;
         $this->headers = [
             'X-CM-ProjectId' => $projectId,
             'Authorization' => 'Bearer ' . $secretKey,

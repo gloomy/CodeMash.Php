@@ -6,7 +6,7 @@ if (! function_exists('toJson')) {
      */
     function toJson($val): string
     {
-        return \GuzzleHttp\json_encode($val);
+        return is_null($val) ? '{}' : \GuzzleHttp\json_encode($val);
     }
 }
 
