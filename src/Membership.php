@@ -6,7 +6,7 @@ use CodeMash\Exceptions\RequestValidationException;
 use CodeMash\Params\UserParams;
 use GuzzleHttp\Exception\GuzzleException;
 
-class User
+class Membership
 {
     private Client $client;
     private string $uriPrefix = 'v2/membership/users/';
