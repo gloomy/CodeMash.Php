@@ -1,17 +1,17 @@
 <?php
 
-namespace Codemash;
+namespace CodeMash;
 
-use Codemash\Exceptions\RequestValidationException;
-use Codemash\Params\CodemashPushNotificationParams;
+use CodeMash\Exceptions\RequestValidationException;
+use CodeMash\Params\PushNotificationParams;
 use GuzzleHttp\Exception\GuzzleException;
 
-class CodemashPushNotification
+class PushNotification
 {
-    private CodemashClient $client;
+    private Client $client;
     private string $uriPrefix = 'v2/notifications/push/';
 
-    public function __construct(CodemashClient $client)
+    public function __construct(Client $client)
     {
         $this->client = $client;
     }
@@ -22,7 +22,7 @@ class CodemashPushNotification
      */
     public function getTemplate(array $params): array
     {
-        $params = CodemashPushNotificationParams::prepGetByIdParams($params);
+        $params = PushNotificationParams::prepGetByIdParams($params);
 
         $response = $this->client->request('GET', $this->uriPrefix . 'templates/' . $params['id'], [
             'headers' => [
@@ -55,7 +55,7 @@ class CodemashPushNotification
      */
     public function sendNotification(array $params): string
     {
-        $params = CodemashPushNotificationParams::prepSendNotificationParams($params);
+        $params = PushNotificationParams::prepSendNotificationParams($params);
 
         $response = $this->client->request('POST', $this->uriPrefix, [
             'headers' => [
@@ -74,7 +74,7 @@ class CodemashPushNotification
      */
     public function getNotification(array $params): array
     {
-        $params = CodemashPushNotificationParams::prepGetByIdParams($params);
+        $params = PushNotificationParams::prepGetByIdParams($params);
 
         $response = $this->client->request('GET', $this->uriPrefix . $params['id'], [
             'headers' => [
@@ -91,7 +91,7 @@ class CodemashPushNotification
      */
     public function getNotifications(array $params = []): array
     {
-        $params = CodemashPushNotificationParams::prepGetNotificationsParams($params);
+        $params = PushNotificationParams::prepGetNotificationsParams($params);
 
         $response = $this->client->request('GET', $this->uriPrefix, [
             'headers' => [
@@ -109,7 +109,7 @@ class CodemashPushNotification
      */
     public function getNotificationCount(array $params): array
     {
-        $params = CodemashPushNotificationParams::prepGetNotificationsParams($params);
+        $params = PushNotificationParams::prepGetNotificationsParams($params);
 
         $response = $this->client->request('GET', $this->uriPrefix . 'count', [
             'headers' => [
@@ -128,7 +128,7 @@ class CodemashPushNotification
      */
     public function readNotification(array $params): int
     {
-        $params = CodemashPushNotificationParams::prepGetByIdParams($params);
+        $params = PushNotificationParams::prepGetByIdParams($params);
 
         return $this->client->request('PATCH', $this->uriPrefix . $params['id'] . '/read', [
             'headers' => [
@@ -144,7 +144,7 @@ class CodemashPushNotification
      */
     public function deleteNotification(array $params): int
     {
-        $params = CodemashPushNotificationParams::prepGetByIdParams($params);
+        $params = PushNotificationParams::prepGetByIdParams($params);
 
         return $this->client->request('DELETE', $this->uriPrefix . $params['id'], [
             'headers' => [
@@ -160,7 +160,7 @@ class CodemashPushNotification
      */
     public function registerDevice(array $params = []): array
     {
-        $params = CodemashPushNotificationParams::prepRegisterDeviceParams($params);
+        $params = PushNotificationParams::prepRegisterDeviceParams($params);
 
         $response = $this->client->request('POST', $this->uriPrefix . 'devices', [
             'headers' => [
@@ -179,7 +179,7 @@ class CodemashPushNotification
      */
     public function registerExpoToken(array $params): string
     {
-        $params = CodemashPushNotificationParams::prepRegisterExpoTokenParams($params);
+        $params = PushNotificationParams::prepRegisterExpoTokenParams($params);
 
         $response = $this->client->request('POST', $this->uriPrefix . 'token/expo', [
             'headers' => [
@@ -198,7 +198,7 @@ class CodemashPushNotification
      */
     public function getDevice(array $params): array
     {
-        $params = CodemashPushNotificationParams::prepGetByIdParams($params);
+        $params = PushNotificationParams::prepGetByIdParams($params);
 
         $response = $this->client->request('GET', $this->uriPrefix . 'devices/' . $params['id'], [
             'headers' => [
@@ -231,7 +231,7 @@ class CodemashPushNotification
      */
     public function deleteDevice(array $params): int
     {
-        $params = CodemashPushNotificationParams::prepGetByIdParams($params);
+        $params = PushNotificationParams::prepGetByIdParams($params);
 
         return $this->client->request('DELETE', $this->uriPrefix . 'devices/' . $params['id'], [
             'headers' => [
@@ -247,7 +247,7 @@ class CodemashPushNotification
      */
     public function deleteDeviceToken(array $params): int
     {
-        $params = CodemashPushNotificationParams::prepGetByIdParams($params);
+        $params = PushNotificationParams::prepGetByIdParams($params);
 
         return $this->client->request('DELETE', $this->uriPrefix . 'devices/' . $params['id'] . '/token', [
             'headers' => [
@@ -263,7 +263,7 @@ class CodemashPushNotification
      */
     public function updateDeviceMeta(array $params): bool
     {
-        $params = CodemashPushNotificationParams::prepUpdateDeviceMetaParams($params);
+        $params = PushNotificationParams::prepUpdateDeviceMetaParams($params);
 
         $response = $this->client->request('PATCH', $this->uriPrefix . 'devices/' . $params['id'] . '/metadata', [
             'headers' => [
@@ -282,7 +282,7 @@ class CodemashPushNotification
      */
     public function updateDeviceTimezone(array $params): bool
     {
-        $params = CodemashPushNotificationParams::prepUpdateDeviceTimezoneParams($params);
+        $params = PushNotificationParams::prepUpdateDeviceTimezoneParams($params);
 
         $response = $this->client->request('PATCH', $this->uriPrefix . 'devices/' . $params['id'] . '/timezone', [
             'headers' => [
@@ -301,7 +301,7 @@ class CodemashPushNotification
      */
     public function updateDeviceUser(array $params): bool
     {
-        $params = CodemashPushNotificationParams::prepUpdateDeviceUserParams($params);
+        $params = PushNotificationParams::prepUpdateDeviceUserParams($params);
 
         $response = $this->client->request('PATCH', $this->uriPrefix . 'devices/' . $params['id'] . '/user', [
             'headers' => [

@@ -1,6 +1,6 @@
 <?php
 
-namespace Codemash\Exceptions;
+namespace CodeMash\Exceptions;
 
 class RequestValidationException extends \Exception
 {

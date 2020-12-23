@@ -1,17 +1,17 @@
 <?php
 
-namespace Codemash;
+namespace CodeMash;
 
-use Codemash\Exceptions\RequestValidationException;
-use Codemash\Params\CodemashEmailParams;
+use CodeMash\Exceptions\RequestValidationException;
+use CodeMash\Params\EmailParams;
 use GuzzleHttp\Exception\GuzzleException;
 
-class CodemashEmail
+class Email
 {
-    private CodemashClient $client;
+    private Client $client;
     private string $uriPrefix = 'v2/';
 
-    public function __construct(CodemashClient $client)
+    public function __construct(Client $client)
     {
         $this->client = $client;
     }
@@ -22,7 +22,7 @@ class CodemashEmail
      */
     public function send(array $params): string
     {
-        $params = CodemashEmailParams::prepSendParams($params);
+        $params = EmailParams::prepSendParams($params);
 
         $response = $this->client->request('POST', $this->uriPrefix . 'notifications/email', [
             'headers' => [

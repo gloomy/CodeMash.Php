@@ -1,17 +1,17 @@
 <?php
 
-namespace Codemash;
+namespace CodeMash;
 
-use Codemash\Exceptions\RequestValidationException;
-use Codemash\Params\CodemashDbParams;
+use CodeMash\Exceptions\RequestValidationException;
+use CodeMash\Params\DbParams;
 use GuzzleHttp\Exception\GuzzleException;
 
-class CodemashDb
+class Db
 {
-    private CodemashClient $client;
+    private Client $client;
     private string $uriPrefix = 'v2/db/';
 
-    public function __construct(CodemashClient $client)
+    public function __construct(Client $client)
     {
         $this->client = $client;
     }
@@ -22,7 +22,7 @@ class CodemashDb
      */
     public function insertOne(array $params): array
     {
-        $params = CodemashDbParams::prepInsertOneParams($params);
+        $params = DbParams::prepInsertOneParams($params);
 
         $response = $this->client->request('POST', $this->uriPrefix . $params['collectionName'], [
             'headers' => [
@@ -41,7 +41,7 @@ class CodemashDb
      */
     public function insertMany(array $params): array
     {
-        $params = CodemashDbParams::prepInsertManyParams($params);
+        $params = DbParams::prepInsertManyParams($params);
 
         $response = $this->client->request('POST', $this->uriPrefix . $params['collectionName'] . '/bulk', [
             'headers' => [
@@ -60,7 +60,7 @@ class CodemashDb
      */
     public function get(array $params): array
     {
-        $params = CodemashDbParams::prepGetParams($params);
+        $params = DbParams::prepGetParams($params);
 
         $response = $this->client->request('GET', $this->uriPrefix . $params['collectionName'] . '/' . $params['id'], [
             'headers' => [
@@ -80,7 +80,7 @@ class CodemashDb
      */
     public function findOne(array $params): array
     {
-        $params = CodemashDbParams::prepFindOneParams($params);
+        $params = DbParams::prepFindOneParams($params);
 
         $response = $this->client->request('GET', $this->uriPrefix . $params['collectionName'] . '/findOne', [
             'headers' => [
@@ -96,7 +96,7 @@ class CodemashDb
 
     public function findMany(array $params): array
     {
-        $params = CodemashDbParams::prepFindManyParams($params);
+        $params = DbParams::prepFindManyParams($params);
 
         $response = $this->client->request('GET', $this->uriPrefix . $params['collectionName'] . '/find', [
             'headers' => [
@@ -116,7 +116,7 @@ class CodemashDb
      */
     public function count(array $params): int
     {
-        $params = CodemashDbParams::prepCountParams($params);
+        $params = DbParams::prepCountParams($params);
 
         $response = $this->client->request('GET', $this->uriPrefix . $params['collectionName'] . '/count', [
             'headers' => [
@@ -135,7 +135,7 @@ class CodemashDb
      */
     public function getAggregate(array $params): array
     {
-        $params = CodemashDbParams::prepGetAggregateParams($params);
+        $params = DbParams::prepGetAggregateParams($params);
 
         $uri = ! empty($params['pipeline'])
             ? $this->uriPrefix . $params['collectionName'] . '/aggregate/pipeline'
@@ -158,7 +158,7 @@ class CodemashDb
      */
     public function replaceOne(array $params): array
     {
-        $params = CodemashDbParams::prepReplaceOneParams($params);
+        $params = DbParams::prepReplaceOneParams($params);
 
         $response = $this->client->request('PUT', $this->uriPrefix . $params['collectionName'] . '/replaceOne', [
             'headers' => [
@@ -177,7 +177,7 @@ class CodemashDb
      */
     public function updateOne(array $params): array
     {
-        $params = CodemashDbParams::prepUpdateOneParams($params);
+        $params = DbParams::prepUpdateOneParams($params);
 
         $response = $this->client->request(
             'PATCH',
@@ -200,7 +200,7 @@ class CodemashDb
      */
     public function updateOneWithFilter(array $params): array
     {
-        $params = CodemashDbParams::prepUpdateOneWithFilterParams($params);
+        $params = DbParams::prepUpdateOneWithFilterParams($params);
 
         $response = $this->client->request('PATCH', $this->uriPrefix . $params['collectionName'], [
             'headers' => [
@@ -219,7 +219,7 @@ class CodemashDb
      */
     public function updateMany(array $params): array
     {
-        $params = CodemashDbParams::prepUpdateManyParams($params);
+        $params = DbParams::prepUpdateManyParams($params);
 
         $response = $this->client->request('PATCH', $this->uriPrefix . $params['collectionName'] . '/bulk', [
             'headers' => [
@@ -238,7 +238,7 @@ class CodemashDb
      */
     public function deleteOne(array $params): array
     {
-        $params = CodemashDbParams::prepDeleteOneParams($params);
+        $params = DbParams::prepDeleteOneParams($params);
 
         $response = $this->client->request(
             'DELETE',
@@ -261,7 +261,7 @@ class CodemashDb
      */
     public function deleteOneWithFilter(array $params): array
     {
-        $params = CodemashDbParams::prepDeleteWithFilterParams($params);
+        $params = DbParams::prepDeleteWithFilterParams($params);
 
         $response = $this->client->request('DELETE', $this->uriPrefix . $params['collectionName'], [
             'headers' => [
@@ -280,7 +280,7 @@ class CodemashDb
      */
     public function deleteMany(array $params): array
     {
-        $params = CodemashDbParams::prepDeleteWithFilterParams($params);
+        $params = DbParams::prepDeleteWithFilterParams($params);
 
         $response = $this->client->request('DELETE', $this->uriPrefix . $params['collectionName'] . '/bulk', [
             'headers' => [
@@ -299,7 +299,7 @@ class CodemashDb
      */
     public function getDistinct(array $params): array
     {
-        $params = CodemashDbParams::prepGetDistinctParams($params);
+        $params = DbParams::prepGetDistinctParams($params);
 
         $response = $this->client->request('GET', $this->uriPrefix . $params['collectionName'] . '/distinct', [
             'headers' => [
@@ -318,7 +318,7 @@ class CodemashDb
      */
     public function getTaxonomyTerms(array $params): array
     {
-        $params = CodemashDbParams::prepGetTaxonomyTerms($params);
+        $params = DbParams::prepGetTaxonomyTerms($params);
 
         $response = $this->client->request(
             'GET',

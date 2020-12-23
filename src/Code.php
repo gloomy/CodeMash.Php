@@ -1,17 +1,17 @@
 <?php
 
-namespace Codemash;
+namespace CodeMash;
 
-use Codemash\Exceptions\RequestValidationException;
-use Codemash\Params\CodemashCodeParams;
+use CodeMash\Exceptions\RequestValidationException;
+use CodeMash\Params\CodeParams;
 use GuzzleHttp\Exception\GuzzleException;
 
-class CodemashCode
+class Code
 {
-    private CodemashClient $client;
+    private Client $client;
     private string $uriPrefix = 'v2/serverless/functions/';
 
-    public function __construct(CodemashClient $client)
+    public function __construct(Client $client)
     {
         $this->client = $client;
     }
@@ -22,7 +22,7 @@ class CodemashCode
      */
     public function executeFunction(array $params): array
     {
-        $params = CodemashCodeParams::prepExecuteFunctionParams($params);
+        $params = CodeParams::prepExecuteFunctionParams($params);
 
         $response = $this->client->request('POST', $this->uriPrefix . $params['id'] . '/execute', [
             'headers' => [

@@ -10,7 +10,7 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
-class CodemashClientTest extends TestCase
+class ClientTest extends TestCase
 {
     public function testGuzzleHttpClient()
     {
