@@ -2,6 +2,22 @@
 
 Php SDK for CodeMash
 
+## Versions
+
+This repository is following [semantic versioning](https://semver.org/).
+
+## Contributing
+
+### Versioning
+
+Version is automatically bumped based on added label to the PR:
+
+* `bump:patch`
+* `bump:minor`
+* `bump:major`
+
+For more information please see [action-bumpr](https://github.com/haya14busa/action-bumpr).
+
 ## Testing
 
 ### Unit tests
