@@ -31,7 +31,7 @@
   },
   "scripts": {
     "unit-tests": "phpunit --testsuite Unit",
-    "feature-tests": "phpunit --configuration phpunit_feature.xml --testsuite Feature",
+    "feature-tests": "phpunit --configuration phpunit_feature.xml --testsuite Feature --coverage-clover coverage.xml",
     "phpcs": "phpcs",
     "phpcbf": "phpcbf"
   }
