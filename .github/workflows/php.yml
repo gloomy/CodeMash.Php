@@ -46,3 +46,6 @@ jobs:
 
       - name: Run php unit tests
         run: composer run-script unit-tests
+
+      - name: Submit coverage report
+        run: bash <(curl -s https://codecov.io/bash)
