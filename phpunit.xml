@@ -23,7 +23,7 @@
     </logging>
     <filter>
         <whitelist>
-            <directory>tests/Unit</directory>
+            <directory>src</directory>
         </whitelist>
     </filter>
 </phpunit>
